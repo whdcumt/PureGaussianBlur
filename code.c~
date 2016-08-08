@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <ncurses.h>
 #include <malloc.h>
-#include<fcntl.h>
 #define SQRT_2PI 2.506628274631
 
 #pragma pack(push,2)
@@ -49,10 +49,12 @@ int main(int argc, char** argv)
 	bmp_t *bmp = NULL, *blur = NULL;
 
 	InputName = "input.bmp"; OutputName = "output.bmp";
-	if ((fopen(InputName, "rb"))==NULL )
+	if ((fopen(InputName, "rb"))=NULL)
 	{
 		printf("File not found\n");
-		//_getch();
+		system("stty-echo");
+                getchar();
+                system("stty-echo");
 		return 1;
 	}
 	bmp = bmp_open(InputFile);

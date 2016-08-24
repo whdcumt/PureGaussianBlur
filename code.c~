@@ -1,4 +1,5 @@
 #include<stdio.h>  
+#include <sys/types.h>
 typedef struct
 {
 	unsigned short bfType;
@@ -28,6 +29,11 @@ int main(void)
   InputName = "input.bmp"; OutputName = "output.bmp";
   FILE *InputFile, *OutputFile;
   bmp_t *bmp = NULL, *blur = NULL;
+  if (!(InputFile=fopen(InputName, "r")))
+	{
+		printf("File not found\n");
+		return 1;
+	}
   printf("Hello, world!\n");  
   return 0;  
 }  

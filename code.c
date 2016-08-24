@@ -34,7 +34,13 @@ int main(void)
 		printf("File not found\n");
 		return 1;
 	}
-  fclose(InputFile);
+  if(fclose(InputFile))
+   {  
+        printf("close file failed.\n");  
+   }
+else{  
+        printf("close file success.\n");     
+    }
   printf("Hello, world!\n");  
   return 0;  
 }  

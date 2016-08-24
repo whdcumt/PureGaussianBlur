@@ -29,11 +29,12 @@ int main(void)
   InputName = "input.bmp"; OutputName = "output.bmp";
   FILE *InputFile, *OutputFile;
   bmp_t *bmp = NULL, *blur = NULL;
-  if (!(InputFile=fopen(InputName, "r")))
+  if ((InputFile=fopen(InputName, "r"))==NULL)
 	{
 		printf("File not found\n");
 		return 1;
 	}
+  fclose(InputFile);
   printf("Hello, world!\n");  
   return 0;  
 }  

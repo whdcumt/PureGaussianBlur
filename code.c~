@@ -11,7 +11,8 @@ typedef int                 BOOL;
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 //位图信息头结构体定义
-typedef struct tagBITMAPINFOHEADER
+#pragma pack(push,2)
+typedef struct 
 {
    DWORD biSize;
    long   biWidth;
@@ -25,6 +26,12 @@ typedef struct tagBITMAPINFOHEADER
    DWORD biClrUsed;
    DWORD biClrImportant;
 } BITMAPINFOHEADER;
+#pragma pack(pop)
+typedef struct
+{
+	bmp_header_t header;
+	char *data;
+} bmp_t;
 //读取bmp图像函数
 int ReadBmp(const char* szFileName);
 //定义全局变量

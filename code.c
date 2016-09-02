@@ -11,22 +11,26 @@ typedef int                 BOOL;
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 //位图信息头结构体定义
-#pragma pack(push,2)
-typedef struct 
+//#pragma pack(push,2)
+typedef struct tagBITMAPINFOHEADER
 {
-   DWORD biSize;
+   WORD   bfType;
+   DWORD  bfileSize;
+   DWORD  bfReserved;
+   DWORD  bOffBits;
+   DWORD  biSize;
    long   biWidth;
    long   biHeight;
    WORD   biPlanes;
    WORD   biBitCount;
-   DWORD biCompression;
-   DWORD biSizeImage;
+   DWORD  biCompression;
+   DWORD  biSizeImage;
    long   biXPelsPerMeter;
    long   biYPelsPerMeter;
    DWORD biClrUsed;
    DWORD biClrImportant;
-} BITMAPINFOHEADER;
-#pragma pack(pop)
+} __attribute__((packed))BITMAPINFOHEADER,*PBITMAPINFOHEADER;  
+//#pragma pack(pop)
 typedef struct
 {
 	BITMAPINFOHEADER header;
@@ -65,7 +69,7 @@ int ReadBmp(const char* szFileName)
 	//文件状态变量
         FILE *file;
         //定义大小为7的数组，用于后面的存储
-	WORD bfh[7];
+	//WORD bfh[7];
 	long dpixeladd;
         //读取图像文件失败，返回0
 	if (NULL == (file = fopen(szFileName, "rb")))
@@ -75,13 +79,13 @@ int ReadBmp(const char* szFileName)
         //读取成功后，输出图像路径
 	printf("%s\n", szFileName);
         //读取7个WORD的数据到数组中
-	fread(&bfh, sizeof(WORD), 7, file);
+	//fread(&bfh, sizeof(WORD), 7, file);
         //判断数组中的第一个元素是不是BM，详见说明文档
-	if (bfh[0] != (WORD)(((WORD)'B')|('M'<<8)))
-	{
-	   fclose(file);
-	   return 0;
-	}
+	//if (bfh[0] != (WORD)(((WORD)'B')|('M'<<8)))
+	//{
+	//   fclose(file);
+	//   return 0;
+	//}
         //如果前面确定是bmp图像，则读取位图信息头数据
 	fread(&bih, sizeof(BITMAPINFOHEADER), 1, file);
         //如果不是24位的bmp图像则退出

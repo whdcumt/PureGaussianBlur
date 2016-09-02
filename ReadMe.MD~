@@ -3,8 +3,8 @@
 [1]#pragma pack(push,2) /#pragma pack() 字节的对齐
 [参考博客1](http://www.cnblogs.com/King-Gentleman/p/5297355.html)
 [参考博客2](http://blog.chinaunix.net/uid-25445243-id-2354324.html)<br>
-[2]将typedef struct tagBITMAPINFOHEADER中的tagBITMAPINFOHEADER 删掉,运行结果不受影响
-[3]打开一个文件fopen().
-[4]根据文件的存储格式读取里面的内容fread().
-[5]综合BMP图像的结构,和知识点4和5,可以实现图像数据的读取.
+[2]将typedef struct tagBITMAPINFOHEADER中的tagBITMAPINFOHEADER 删掉,运行结果不受影响<br>
+[3]打开一个文件fopen().<br>
+[4]根据文件的存储格式读取里面的内容fread().<br>
+[5]综合BMP图像的结构,和知识点4和5,可以实现图像数据的读取.<br>
 

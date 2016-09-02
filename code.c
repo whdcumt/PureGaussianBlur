@@ -38,6 +38,7 @@ typedef struct
 } bmp_t;
 void bmp_free(bmp_t *);
 bmp_t *bmp_open(FILE *);
+int bmp_write(bmp_t*, FILE*);
 int main(void)  
 {  
         char *InputName, *OutputName;
@@ -51,9 +52,19 @@ int main(void)
 	}
         bmp = bmp_open(InputFile);   //图像文件读取
 	fclose(InputFile);
-
+        OutputFile = fopen(OutputName, "wb");
+        if (OutputFile == NULL) 
+        {
+		printf("Can't open %s\n", OutputName);
+		return EXIT_FAILURE;
+	}
+        bmp_write(bmp, OutputFile); 
+        fclose(OutputFile);
+        bmp_free(bmp);
+        return 0;
 }  
-bmp_t *bmp_open(FILE *f) {
+bmp_t *bmp_open(FILE *f) 
+{
 	bmp_t *bmp;
 	bmp = (bmp_t *)malloc(sizeof(bmp_t));
 	bmp->data = NULL;
@@ -77,3 +88,8 @@ void bmp_free(bmp_t *bmp)
 	if (bmp->data != NULL) free(bmp->data);
 	free(bmp);
 }
+int bmp_write(bmp_t *bmp, FILE *out) {
+	return fwrite(&(bmp->header), sizeof(BITMAPINFOHEADER), 1, out)
+		&& fwrite(bmp->data, bmp->header.biSizeImage, 1, out);
+}
+
